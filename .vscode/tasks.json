@@ -1,0 +1,17 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "antlr",
+			"type": "shell",
+			"command": "antlr",
+			"args": [
+				"src/main/java/io/spotnext/kawa/lang/Kawa.g4",
+				"-package",
+				"io.spotnext.kawa.lang"
+			]
+		}
+	]
+}

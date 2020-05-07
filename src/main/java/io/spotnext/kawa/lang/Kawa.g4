@@ -1,16 +1,36 @@
-grammar kawalang;
+grammar Kawa;
 
 // PARSER RULES
 
-compilationUnit: (namespace)* EOF;
-namespace: (PACKAGE IDENTIFIER (klass));
-klass: CLASS IDENTIFIER;
+compilationUnit: kPackage EOF;
+kPackage:
+	PACKAGE IDENTIFIER '{' (
+		kClass
+		| kInterface
+		| kEenum
+		| kStruct
+	)* '}';
+kClass: (PRIVATE |) (ABSTRACT |) CLASS IDENTIFIER '{' (
+		kVariable
+		| kMethod
+	)* '}';
+kInterface: INTERFACE IDENTIFIER;
+kEenum: ENUM IDENTIFIER;
+kStruct: STRUCT IDENTIFIER;
+kMemberVisibilityModifiers: (PRIVATE | PROTECTED |);
+kVariable: (kMemberVisibilityModifiers) (
+		(VARIABLE | FINAL_VARIABLE)
+	) IDENTIFIER TYPE_DECLARATION IDENTIFIER;
+kMethod:
+	(kMemberVisibilityModifiers) (ABSTRACT | STATIC |) (ASYNC |) (
+		SYNCHRONIZED
+		|
+	) IDENTIFIER '(' ')' TYPE_DECLARATION IDENTIFIER '{' '}';
 
 // LEXER RULES
 
 // fragments
-fragment CURLY_OPEN: '{';
-fragment CURLY_CLOSE: '}';
+fragment AS: 'as';
 fragment LETTER: [A-Z] | [a-z] | '_' | '$';
 fragment STRING_CHAR: ~('"' | '\\' | '\r' | '\n');
 fragment NON_ZERO_DIGIT: [1-9];
@@ -32,8 +52,6 @@ NUMERIC_LITERAL: '0' | NON_ZERO_DIGIT DIGIT*;
 HEX_NUMERIC_LITERAL: '0x' HEX_DIGIT*;
 BOOLEAN_LITERAL: BOOLEAN;
 
-IDENTIFIER: [a-zA-Z0-9]+; //must be any alphanumeric value
-
 // keywords
 PACKAGE: 'package';
 CLASS: 'class';
@@ -42,7 +60,8 @@ ENUM: 'enum';
 STRUCT: 'struct';
 VARIABLE: 'var';
 FINAL_VARIABLE: 'let';
-CASTING: 'as';
+TYPE_DECLARATION: AS;
+CAST: AS;
 THROW: 'throw';
 THROWS: 'throws';
 RETURN: 'return';
@@ -106,6 +125,8 @@ DECREMENT_AND_ASSIGN: EQUAL MINUS;
 MULTIPLY_AND_ASSIGN: EQUAL MULTIPLY;
 DIVIDE_AND_ASSIGN: EQUAL DIVIDE;
 MODULUS_AND_ASSIGN: EQUAL MODULUS;
+
+IDENTIFIER: LETTER (LETTER | DIGIT)*;
 
 // non-code
 BLOCK_COMMENT: '/*' .*? '*/' -> skip;

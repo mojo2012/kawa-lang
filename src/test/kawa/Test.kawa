@@ -1,0 +1,13 @@
+package TestPackage {
+
+	private abstract class TestClass {
+		private var name as String
+
+		private static async synchronized test() as String { }
+
+		protected async test() as Byte[] { }
+
+		static synchronized test() as int { }
+	}
+
+}

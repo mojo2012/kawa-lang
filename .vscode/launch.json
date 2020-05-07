@@ -1,0 +1,15 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "java",
+			"name": "Debug",
+			"request": "launch",
+			"mainClass": "org.antlr.v4.gui.TestRig",
+			"args": "io.spotnext.kawa.lang.Kawa compilationUnit -gui -tree src/test/kawa/Test.kawa",
+		}
+	]
+}

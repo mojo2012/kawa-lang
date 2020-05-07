@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"antlr4.generation": {
+			"mode": "external",
+			"language": "Java",
+			"listeners": true,
+			"visitors": false,
+			"package": "io.spotnext.kawa.lang",
+			"outputDir": "."
+		}
+	}
+}
