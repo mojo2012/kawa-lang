@@ -9,7 +9,7 @@
 			"name": "Debug",
 			"request": "launch",
 			"mainClass": "org.antlr.v4.gui.TestRig",
-			"args": "io.spotnext.kawa.lang.Kawa compilationUnit -gui -tree src/test/kawa/Test.kawa",
+			"args": "io.spotnext.kawa.lang.Kawa compilationUnit -gui -tree -tokens src/test/kawa/Test.kawa",
 		}
 	]
 }

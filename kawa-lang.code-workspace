@@ -12,6 +12,14 @@
 			"visitors": false,
 			"package": "io.spotnext.kawa.lang",
 			"outputDir": "."
+		},
+		"antlr4.format": {
+			"alignColons": "trailing",
+			"alignActions": true,
+			"columnLimit": 300,
+			"useTab": false,
+			"alignLabels": true,
+			"alignSemicolons": "ownLine",
 		}
 	}
 }
