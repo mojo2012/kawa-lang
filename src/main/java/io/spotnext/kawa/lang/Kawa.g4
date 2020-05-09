@@ -10,7 +10,7 @@ classDeclaration          : classVisibilityModifiers? classModifiers? CLASS clas
 interfaceDeclaration      : PRIVATE? INTERFACE IDENTIFIER;
 enumDeclaration           : PRIVATE? ENUM IDENTIFIER;
 structDeclaration         : PRIVATE? STRUCT IDENTIFIER;
-variableDeclaration       : (VARIABLE | FINAL_VARIABLE) variableName (ASSIGN literals | DECLARE_TYPE typeLiteral) (AS typeLiteral)?;
+variableDeclaration       : (VARIABLE | FINAL_VARIABLE) variableName (ASSIGN literals | DECLARE_TYPE typeLiteral) casting?;
 methodArgument            : variableName (ASSIGN literals | DECLARE_TYPE typeLiteral) (AS typeLiteral)?;
 methodArguments           : methodArgument (',' methodArgument)*;
 fieldDeclaration          : (memberVisibilityModifiers) variableDeclaration;
@@ -20,7 +20,7 @@ qualifiedNameElement      : IDENTIFIER;
 classVisibilityModifiers  : PRIVATE;
 classModifiers            : ABSTRACT;
 memberVisibilityModifiers : (PRIVATE | PROTECTED)?;
-literals                  : STRING_LITERAL | INTEGER_LITERAL | LONG_LITERAL | FLOAT_LITERAL | DOUBLE_LITERAL | HEX_NUMERIC_LITERAL | BOOLEAN_LITERAL;
+literals                  : STRING_LITERAL | INTEGER_LITERAL | LONG_LITERAL | FLOAT_LITERAL | DOUBLE_LITERAL | HEX_NUMERIC_LITERAL | BOOLEAN_LITERAL | NULL_LITERAL;
 typeLiteral               : IDENTIFIER ARRAY_EMPTY? OPTIONAL?;
 packageName               : IDENTIFIER;
 className                 : IDENTIFIER;
@@ -29,7 +29,10 @@ methodName                : IDENTIFIER;
 extendsDeclaration        : EXTENDS className;
 implementsDeclaration     : IMPLEMENTS className (',' className)*;
 returnStatement           : RETURN IDENTIFIER;
-codeBlock                 : '{' (variableDeclaration | methodDeclaration)* returnStatement? '}';
+codeBlock                 : '{' (variableDeclaration | methodInvocation)* returnStatement? '}';
+methodInvocation          : ((variableName | className | literals) METHOD_INVOCATION_INDICATOR)? methodName '(' methodArguments* ')';
+variableAssignment        : variableName ASSIGN (methodInvocation | literals) (casting)?;
+casting                   : (AS typeLiteral);
 
 // for testing only
 test_fieldDeclarations : fieldDeclaration*;
@@ -59,10 +62,12 @@ fragment DOT            : '.';
 fragment COMMA          : ',';
 fragment UNDERSCORE     : '_';
 
-OPTIONAL          : QUESTION_MARK;
-DECLARE_TYPE      : COLON;
-ARRAY_EMPTY       : '[]';
-PACKAGE_SEPARATOR : DOT;
+OPTIONAL                    : QUESTION_MARK;
+DECLARE_TYPE                : COLON;
+ARRAY_EMPTY                 : '[]';
+PACKAGE_SEPARATOR           : DOT;
+PROPERTY_ACCESS_INDICATOR   : DOT;
+METHOD_INVOCATION_INDICATOR : DOT;
 
 // literals
 BOOLEAN_LITERAL     : BOOLEAN;

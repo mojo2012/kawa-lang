@@ -288,6 +288,36 @@ public interface KawaListener extends ParseTreeListener {
 	 */
 	void exitCodeBlock(KawaParser.CodeBlockContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link KawaParser#methodInvocation}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethodInvocation(KawaParser.MethodInvocationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KawaParser#methodInvocation}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethodInvocation(KawaParser.MethodInvocationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KawaParser#variableAssignment}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariableAssignment(KawaParser.VariableAssignmentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KawaParser#variableAssignment}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariableAssignment(KawaParser.VariableAssignmentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KawaParser#casting}.
+	 * @param ctx the parse tree
+	 */
+	void enterCasting(KawaParser.CastingContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KawaParser#casting}.
+	 * @param ctx the parse tree
+	 */
+	void exitCasting(KawaParser.CastingContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link KawaParser#test_fieldDeclarations}.
 	 * @param ctx the parse tree
 	 */
