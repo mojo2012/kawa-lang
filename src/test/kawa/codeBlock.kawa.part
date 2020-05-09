@@ -1,0 +1,37 @@
+val val1 = 1
+var val2: Integer
+var val3 = null
+
+TestClass.syncStuff()
+val val4 = TestClass.getStuff(val1, "test", 3)
+val val5 = TestClass.getStuff(value = null, name = "name", money = 1.0)
+val val5 = returnStuff()
+
+val valueOf = valOf("100") as double
+
+val method = TestClass::doStuff // unbound method handle
+val fullNameField = this::fullName.get() // bound field handle
+
+val closure = (input): void { assert input not null : "Input was null" }
+
+// instantiate a Person, and set the values. The .. operator works like a builder and returns the actual object
+val person = Person
+		.new(name = "Peter")
+		..age = 20
+		..surName = "Pan"
+
+// instanceof
+if (person is Person && person is not ContactPerson) {
+	//
+}
+
+// equals
+if (val3 == val5) {
+	// 
+}
+
+if ((person is not null && 1 <> 2) || "test" != "text") {
+
+}
+
+foreach ()

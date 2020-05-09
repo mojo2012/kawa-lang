@@ -1,0 +1,9 @@
+private var fullName: String?
+
+protected val fullName: String?
+
+var fullName: byte[]
+
+val fullName = "test"
+
+var value = 2.2l

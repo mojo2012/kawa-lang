@@ -267,4 +267,44 @@ public interface KawaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitImplementsDeclaration(KawaParser.ImplementsDeclarationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KawaParser#returnStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturnStatement(KawaParser.ReturnStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KawaParser#returnStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturnStatement(KawaParser.ReturnStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KawaParser#codeBlock}.
+	 * @param ctx the parse tree
+	 */
+	void enterCodeBlock(KawaParser.CodeBlockContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KawaParser#codeBlock}.
+	 * @param ctx the parse tree
+	 */
+	void exitCodeBlock(KawaParser.CodeBlockContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KawaParser#test_fieldDeclarations}.
+	 * @param ctx the parse tree
+	 */
+	void enterTest_fieldDeclarations(KawaParser.Test_fieldDeclarationsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KawaParser#test_fieldDeclarations}.
+	 * @param ctx the parse tree
+	 */
+	void exitTest_fieldDeclarations(KawaParser.Test_fieldDeclarationsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KawaParser#test_methodDeclarations}.
+	 * @param ctx the parse tree
+	 */
+	void enterTest_methodDeclarations(KawaParser.Test_methodDeclarationsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KawaParser#test_methodDeclarations}.
+	 * @param ctx the parse tree
+	 */
+	void exitTest_methodDeclarations(KawaParser.Test_methodDeclarationsContext ctx);
 }

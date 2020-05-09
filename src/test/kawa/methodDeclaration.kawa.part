@@ -1,0 +1,10 @@
+private abstract doStuff(): void
+
+private static async synchronized syncStuff(): String { }
+
+protected async returnStuff(): Byte[] { }
+
+static synchronized getStuff(value: Integer?, name = "name", money = 2.2 as BigDecimal): int { }
+
+calculate(value: int): void {
+}

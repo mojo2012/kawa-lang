@@ -6,10 +6,31 @@
 	"configurations": [
 		{
 			"type": "java",
-			"name": "Debug",
+			"name": "Debug compilationUnit",
 			"request": "launch",
 			"mainClass": "org.antlr.v4.gui.TestRig",
 			"args": "io.spotnext.kawa.lang.Kawa compilationUnit -gui -tree -tokens src/test/kawa/Test.kawa",
+		},
+		{
+			"type": "java",
+			"name": "Debug fieldDeclaration",
+			"request": "launch",
+			"mainClass": "org.antlr.v4.gui.TestRig",
+			"args": "io.spotnext.kawa.lang.Kawa test_fieldDeclarations -gui -tree -tokens src/test/kawa/fieldDeclaration.kawa.part",
+		},
+		{
+			"type": "java",
+			"name": "Debug methodDeclaration",
+			"request": "launch",
+			"mainClass": "org.antlr.v4.gui.TestRig",
+			"args": "io.spotnext.kawa.lang.Kawa test_methodDeclarations -gui -tree -tokens src/test/kawa/methodDeclaration.kawa.part",
+		}
+		{
+			"type": "java",
+			"name": "Debug codeBlock",
+			"request": "launch",
+			"mainClass": "org.antlr.v4.gui.TestRig",
+			"args": "io.spotnext.kawa.lang.Kawa codeBlock -gui -tree -tokens src/test/kawa/codeBlock.kawa.part",
 		}
 	]
 }

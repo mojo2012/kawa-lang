@@ -98,7 +98,6 @@ WHITESPACE=87
 'enum'=21
 'struct'=22
 'var'=23
-'let'=24
 'as'=25
 'throw'=26
 'throws'=27

@@ -14,7 +14,7 @@ variableDeclaration       : (VARIABLE | FINAL_VARIABLE) variableName (ASSIGN lit
 methodArgument            : variableName (ASSIGN literals | DECLARE_TYPE typeLiteral) (AS typeLiteral)?;
 methodArguments           : methodArgument (',' methodArgument)*;
 fieldDeclaration          : (memberVisibilityModifiers) variableDeclaration;
-methodDeclaration         : (memberVisibilityModifiers) (ABSTRACT | STATIC)? NATIVE? VOLATILE? ASYNC? SYNCHRONIZED? methodName '(' methodArguments* ')' DECLARE_TYPE typeLiteral OPTIONAL? '{' '}';
+methodDeclaration         : (memberVisibilityModifiers) (ABSTRACT | STATIC)? NATIVE? VOLATILE? ASYNC? SYNCHRONIZED? methodName '(' methodArguments* ')' DECLARE_TYPE typeLiteral OPTIONAL? codeBlock;
 qualifiedName             : qualifiedNameElement (PACKAGE_SEPARATOR qualifiedNameElement)*;
 qualifiedNameElement      : IDENTIFIER;
 classVisibilityModifiers  : PRIVATE;
@@ -28,6 +28,13 @@ variableName              : IDENTIFIER;
 methodName                : IDENTIFIER;
 extendsDeclaration        : EXTENDS className;
 implementsDeclaration     : IMPLEMENTS className (',' className)*;
+returnStatement           : RETURN IDENTIFIER;
+codeBlock                 : '{' (variableDeclaration | methodDeclaration)* returnStatement? '}';
+
+// for testing only
+test_fieldDeclarations : fieldDeclaration*;
+
+test_methodDeclarations : methodDeclaration*;
 
 // LEXER RULES
 
@@ -74,7 +81,7 @@ INTERFACE      : 'interface';
 ENUM           : 'enum';
 STRUCT         : 'struct';
 VARIABLE       : 'var';
-FINAL_VARIABLE : 'let';
+FINAL_VARIABLE : 'let' | 'val';
 AS             : 'as';
 THROW          : 'throw';
 THROWS         : 'throws';
