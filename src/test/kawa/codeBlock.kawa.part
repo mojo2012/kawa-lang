@@ -35,5 +35,21 @@
 
 	}
 
-	foreach ()
+	val map = { "key": value, "key2": "value2" }
+	val values = [ "Peter", "Susan" ]
+	foreach (val in values) {
+
+	}
+
+	for (x = 0; x < 10; x++) {
+		continue
+	}
+
+	while (true) {
+		break
+	}
+
+	// switch
+	
+	return null
 }
