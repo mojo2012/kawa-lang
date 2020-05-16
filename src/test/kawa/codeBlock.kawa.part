@@ -11,6 +11,7 @@
 	val valueOf = valOf("100") as double
 
 	val method = TestClass::doStuff // unbound method handle
+	method()
 	val fullNameField = this::fullName.get() // bound field handle
 
 	val closure = (input): void { assert input not null : "Input was null" }
@@ -35,19 +36,10 @@
 
 	}
 
-	val map = { "key": value, "key2": "value2" }
+	val map1 = 
+	val map2 = { "key": ():String {return string}), "key2": "value2" }
+
 	val values = [ "Peter", "Susan" ]
-	foreach (val in values) {
-
-	}
-
-	for (x = 0; x < 10; x++) {
-		continue
-	}
-
-	while (true) {
-		break
-	}
 
 	// switch
 	

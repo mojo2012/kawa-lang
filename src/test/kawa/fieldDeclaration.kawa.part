@@ -1,9 +1,16 @@
-private var fullName: String?
-
-protected val fullName: String?
-
-var fullName: byte[]
-
+var fullName: String?
+val fullName: String?
+val byteArray: byte[]
 val fullName = "test"
-
-var value = 2.2l
+val fullName: char[] = "test"
+val object = DataObject.new("test", 1.)
+val fullName = this.getFullName()
+val array: String[] = [ ]
+val array: String[] = [ "test", "test2" ]
+val map: Map = {}
+val map: Map = { "id": 2, "value": "test2" }
+var value = 2.2d
+var value: double = 2
+var value: BigDecimal = 2 as BigDecimal
+var value = 2.2d as BigDecimal
+val map: Map<String, Integer>

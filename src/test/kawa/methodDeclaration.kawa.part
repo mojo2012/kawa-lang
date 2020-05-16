@@ -1,10 +1,25 @@
-private abstract doStuff(): void
+@private @abstract
+def doStuff = (): void
 
-private static async synchronized syncStuff(): String { }
+@public @async
+def syncStuff = (): String { }
 
-protected async returnStuff(): Byte[] { }
+@async
+def returnStuff = (): Byte[] { }
 
-static synchronized getStuff(value: Integer?, name = "name", money = 2.2 as BigDecimal): int { }
+@static @synchronized
+def getStuff = (value: Integer?, name = "name", money = 2.2 as BigDecimal): int { }
 
-calculate(value: int): void {
+def calculate = (value: int): void {
+	//
 }
+
+@abstract
+def abstractMethod = (value: int): String
+
+def method = (value: Map = HashMap.new() as TreeSet): String {
+	//
+}
+
+def genericMethod<T extends Double> = (T type): void {}
+// def <T extends Double> genericMethod = (T type): void {}

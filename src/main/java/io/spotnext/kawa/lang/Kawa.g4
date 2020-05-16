@@ -2,37 +2,78 @@ grammar Kawa;
 
 // PARSER RULES
 
-compilationUnit           : (importsDeclaration)* packageDeclaration EOF;
-importsDeclaration        : IMPORT qualifiedName importRename?;
-importRename              : AS IDENTIFIER;
-packageDeclaration        : PACKAGE packageName '{' ( classDeclaration | interfaceDeclaration | enumDeclaration | structDeclaration) '}';
-classDeclaration          : classVisibilityModifiers? classModifiers? CLASS className extendsDeclaration? implementsDeclaration? '{' (fieldDeclaration | methodDeclaration)* '}';
-interfaceDeclaration      : PRIVATE? INTERFACE IDENTIFIER;
-enumDeclaration           : PRIVATE? ENUM IDENTIFIER;
-structDeclaration         : PRIVATE? STRUCT IDENTIFIER;
-variableDeclaration       : (VARIABLE | FINAL_VARIABLE) variableName (ASSIGN literals | DECLARE_TYPE typeLiteral) casting?;
-methodArgument            : variableName (ASSIGN literals | DECLARE_TYPE typeLiteral) (AS typeLiteral)?;
-methodArguments           : methodArgument (',' methodArgument)*;
-fieldDeclaration          : (memberVisibilityModifiers) variableDeclaration;
-methodDeclaration         : (memberVisibilityModifiers) (ABSTRACT | STATIC)? NATIVE? VOLATILE? ASYNC? SYNCHRONIZED? methodName '(' methodArguments* ')' DECLARE_TYPE typeLiteral OPTIONAL? codeBlock;
-qualifiedName             : qualifiedNameElement (PACKAGE_SEPARATOR qualifiedNameElement)*;
-qualifiedNameElement      : IDENTIFIER;
-classVisibilityModifiers  : PRIVATE;
-classModifiers            : ABSTRACT;
-memberVisibilityModifiers : (PRIVATE | PROTECTED)?;
-literals                  : STRING_LITERAL | INTEGER_LITERAL | LONG_LITERAL | FLOAT_LITERAL | DOUBLE_LITERAL | HEX_NUMERIC_LITERAL | BOOLEAN_LITERAL | NULL_LITERAL;
-typeLiteral               : IDENTIFIER ARRAY_EMPTY? OPTIONAL?;
-packageName               : IDENTIFIER;
-className                 : IDENTIFIER;
-variableName              : IDENTIFIER;
-methodName                : IDENTIFIER;
-extendsDeclaration        : EXTENDS className;
-implementsDeclaration     : IMPLEMENTS className (',' className)*;
-returnStatement           : RETURN IDENTIFIER;
-codeBlock                 : '{' (variableDeclaration | methodInvocation)* returnStatement? '}';
-methodInvocation          : ((variableName | className | literals) METHOD_INVOCATION_INDICATOR)? methodName '(' methodArguments* ')';
-variableAssignment        : variableName ASSIGN (methodInvocation | literals) (casting)?;
+qualifiedName        : qualifiedNameElement (DOT_OPERATOR qualifiedNameElement)*;
+qualifiedNameElement : IDENTIFIER;
+importsDeclaration   : IMPORT qualifiedName importRename?;
+importRename         : AS IDENTIFIER;
+packageName          : IDENTIFIER;
+packageDeclaration   : PACKAGE packageName '{' ( classDeclaration | interfaceDeclaration | enumDeclaration | structDeclaration) '}';
+compilationUnit      : (importsDeclaration)* packageDeclaration EOF;
+
+// type hierarchy
+extendsDeclaration    : EXTENDS className;
+implementsDeclaration : IMPLEMENTS className (',' className)*;
+genericArgument       : className (EXTENDS? className)?;
+genericArguments      : '<' genericArgument (',' genericArgument)* '>';
+
+// class
+classModifiers   : ABSTRACT? PRIVATE?;
+className        : IDENTIFIER genericArguments?;
+classDeclaration : classModifiers CLASS className extendsDeclaration? implementsDeclaration? '{' (fieldDeclaration | methodDeclaration)* '}';
+
+// interface
+interfaceModifiers   : PRIVATE?;
+interfaceName        : IDENTIFIER;
+interfaceDeclaration : interfaceModifiers INTERFACE interfaceName genericArguments? extendsDeclaration? '{' (fieldDeclaration | methodDeclaration)* '}';
+
+// enum
+enumModifiers                 : PRIVATE;
+enumName                      : IDENTIFIER;
+enumValueDeclarationArgument  : literals;
+enumValueDeclarationArguments : enumValueDeclarationArgument (',' enumValueDeclarationArgument)*;
+enumValueDeclaration          : IDENTIFIER ('(' enumValueDeclarationArguments ')')?;
+enumValueDeclarations         : enumValueDeclaration (',' enumValueDeclaration)*;
+enumDeclaration               : enumModifiers? ENUM enumName '{' enumValueDeclaration* '}';
+
+// struct
+structModifiers   : PRIVATE;
+structName        : IDENTIFIER;
+structDeclaration : structModifiers? STRUCT structName '{' fieldDeclaration* '}';
+
+// general
+typeLiteral               : IDENTIFIER (ARRAY_EMPTY? | genericArguments?) OPTIONAL?;
 casting                   : (AS typeLiteral);
+literals                  : STRING_LITERAL | INTEGER_LITERAL | LONG_LITERAL | FLOAT_LITERAL | DOUBLE_LITERAL | HEX_NUMERIC_LITERAL | BOOLEAN_LITERAL | NULL_LITERAL;
+memberVisibilityModifiers : (PRIVATE | PROTECTED | PUBLIC)?;
+
+// variables and fields
+assignment          : variableAccess | literals | methodInvocation | listInitialization | mapInitialization;
+arguments           : assignment (',' assignment)*;
+variableName        : IDENTIFIER;
+variableAccess      : (THIS DOT_OPERATOR)? variableName;
+variableDeclaration : (VARIABLE | FINAL_VARIABLE) variableName (OF_OERATOR typeLiteral)? (ASSIGN (assignment))? casting?;
+fieldDeclaration    : (memberVisibilityModifiers) variableDeclaration;
+
+// methods
+methodModifiers   : (PRIVATE | PROTECTED | PUBLIC)? (ABSTRACT | STATIC)? ASYNC? SYNCHRONIZED? NATIVE? VOLATILE?;
+methodName        : IDENTIFIER;
+methodParameter   : variableName (OF_OERATOR typeLiteral)? (ASSIGN (assignment))? casting?;
+methodParameters  : methodParameter (',' methodParameter)*;
+methodDeclaration : methodModifiers METHOD methodName genericArguments? ASSIGN '(' methodParameters* ')' OF_OERATOR typeLiteral OPTIONAL? codeBlock?;
+
+// code block
+returnStatement    : RETURN IDENTIFIER;
+methodArguments    : arguments;
+methodInvocation   : ((variableAccess | className | literals | THIS | SUPER) DOT_OPERATOR)? methodName '(' arguments* ')';
+variableAssignment : variableName ASSIGN (methodInvocation | literals) (casting)?;
+codeBlock          : '{' (variableDeclaration | methodInvocation)* returnStatement? '}';
+
+// list and map comprehension
+listInitialization : '[' arguments* ']';
+
+mapKeyValue       : STRING_LITERAL OF_OERATOR assignment;
+mapKeyValues      : mapKeyValue (',' mapKeyValue)*;
+mapInitialization : '{' mapKeyValues* '}';
 
 // for testing only
 test_fieldDeclarations : fieldDeclaration*;
@@ -62,12 +103,10 @@ fragment DOT            : '.';
 fragment COMMA          : ',';
 fragment UNDERSCORE     : '_';
 
-OPTIONAL                    : QUESTION_MARK;
-DECLARE_TYPE                : COLON;
-ARRAY_EMPTY                 : '[]';
-PACKAGE_SEPARATOR           : DOT;
-PROPERTY_ACCESS_INDICATOR   : DOT;
-METHOD_INVOCATION_INDICATOR : DOT;
+OPTIONAL     : QUESTION_MARK;
+OF_OERATOR   : COLON;
+ARRAY_EMPTY  : '[]';
+DOT_OPERATOR : DOT;
 
 // literals
 BOOLEAN_LITERAL     : BOOLEAN;
@@ -87,6 +126,7 @@ ENUM           : 'enum';
 STRUCT         : 'struct';
 VARIABLE       : 'var';
 FINAL_VARIABLE : 'let' | 'val';
+METHOD         : 'def';
 AS             : 'as';
 THROW          : 'throw';
 THROWS         : 'throws';
@@ -114,17 +154,18 @@ IMPLEMENTS : 'implements';
 EXTENDS    : 'extends';
 
 // visiblity modifiers
-PRIVATE   : 'private';
-PROTECTED : 'protected';
+PRIVATE   : '@private';
+PROTECTED : '@protected';
+PUBLIC    : '@public';
 
 // functionality modifiers
-NATIVE       : 'native';
-VOLATILE     : 'volatile';
-ABSTRACT     : 'abstract';
-DEFAULT      : 'default';
-ASYNC        : 'async';
-STATIC       : 'static';
-SYNCHRONIZED : 'synchronized';
+NATIVE       : '@native';
+VOLATILE     : '@volatile';
+ABSTRACT     : '@abstract';
+DEFAULT      : '@default';
+ASYNC        : '@async';
+STATIC       : '@static';
+SYNCHRONIZED : '@synchronized';
 
 // OPERATORS
 IS                    : 'is';

@@ -7,19 +7,29 @@ package TestPackage {
 	/**
 	* BLOCK COMMENT
 	**/
-	private abstract class Test extends SuperClass implements ISerializable, IClonable {
+	@abstract @private
+	class Test<T extends Data, Data> extends SuperClass<T> implements ISerializable, IClonable<Test> {
 		// LINE COMMENT
-		private var fullName: String?
+		
+		@prop //implicit protected + getter for "val" or getter/setter for "var"
+		var fullName: char[] = "test"
+		
+		// default is protected
+		// public member access not possible
+		var firstName = "test" as char[]
+		val age = 1;
 
-		private abstract doStuff(): void
+		@private
+		def internalMethod = (): void {
+			// do some magic
+		}
 
-		private static async synchronized syncStuff(): String { }
+		@abstract
+		def abstractMethod = (): void
 
-		protected async returnStuff(): Byte[] { }
-
-		static synchronized getStuff(value: Integer?, name = "name", money = 2.2 as BigDecimal): int { }
-
-		calculate(value: int): void {
+		@public @async 
+		def sayHello = (): void { 
+			print(this.fullName)
 		}
 	}
 
