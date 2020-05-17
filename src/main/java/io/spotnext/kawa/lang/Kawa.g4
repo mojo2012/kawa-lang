@@ -109,10 +109,12 @@ fragment DOT            : '.';
 fragment COMMA          : ',';
 fragment UNDERSCORE     : '_';
 
-OPTIONAL     : QUESTION_MARK;
-OF_OERATOR   : COLON;
-ARRAY_EMPTY  : '[]';
-DOT_OPERATOR : DOT;
+OPTIONAL         : QUESTION_MARK;
+OF_OERATOR       : COLON;
+ARRAY_EMPTY      : '[]';
+DOT_OPERATOR     : DOT;
+DOT_DOT_OPERATOR : DOT DOT;
+OPTIONAL_DOT_OPERATOR : OPTIONAL DOT;
 
 // literals
 BOOLEAN_LITERAL     : BOOLEAN;

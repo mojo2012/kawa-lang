@@ -1,14 +1,23 @@
 {
+	// variable declaration
 	val val1 = 1
 	var val2: Integer
-	var val3 = null
+	var var3: String = null
 
-	TestClass.syncStuff()
+	// variable assignment
+	var2 = val1
+	var3 = "Hello"
+	var3 += "!"
+	var3 = getName("Peter")
+	var3 = this.getName("Peter)
+	var3 = super.getName("Peter)
 	val val4 = TestClass.getStuff(val1, "test", 3)
 	val val5 = TestClass.getStuff(value = null, name = "name", money = 1.0)
 	val val5 = returnStuff()
-
 	val valueOf = valOf("100") as double
+
+	// method invocation
+	TestClass.syncStuff()
 
 	val method = TestClass::doStuff // unbound method handle
 	method()
@@ -36,12 +45,43 @@
 
 	}
 
-	val map1 = 
-	val map2 = { "key": ():String {return string}), "key2": "value2" }
+	val emptyMap = {}
+	val map = { "getTestString": ():String { return "test"}), "key2": "value2" }
+	map?["getTestString"]() // nullsave access and execution of closures
+	map["key2] = "new value"
 
-	val values = [ "Peter", "Susan" ]
+	val emptyArray: String[] = []
+	val value1 = emptyArray?[1] // null-safe access
+	val array = [ "Peter", "Susan" ]
 
 	// switch
+	val switchValue = "Test"
+
+	// yield returns a value, if not called, null is returned
+	val type = switch(switchValue) {
+		case String: yield "String"
+		case "Test": yield String
+		case Integer: yield Integer
+	}
 	
+	// for
+
+	// foreach
+
+	// while
+
+	// if
+	val input = 1
+
+	// yield returns a value, if not called, null is returned
+	val value = if(value == 1) {
+		yield 2
+	} else if (value == 2) {
+		yield 4
+	} else {
+		yield null
+	}
+
+	// return statement
 	return null
 }
