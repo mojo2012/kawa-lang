@@ -9,7 +9,35 @@
 			"name": "Debug compilationUnit",
 			"request": "launch",
 			"mainClass": "org.antlr.v4.gui.TestRig",
-			"args": "io.spotnext.kawa.lang.Kawa compilationUnit -gui -tree -tokens src/test/kawa/Test.kawa",
+			"args": "io.spotnext.kawa.lang.Kawa compilationUnit -gui -tree -tokens src/test/kawa/TestClass.kawa",
+		},
+		{
+			"type": "java",
+			"name": "Debug struct",
+			"request": "launch",
+			"mainClass": "org.antlr.v4.gui.TestRig",
+			"args": "io.spotnext.kawa.lang.Kawa structDeclaration -gui -tree -tokens src/test/kawa/TestStruct.kawa",
+		},
+		{
+			"type": "java",
+			"name": "Debug enum",
+			"request": "launch",
+			"mainClass": "org.antlr.v4.gui.TestRig",
+			"args": "io.spotnext.kawa.lang.Kawa enumDeclaration -gui -tree -tokens src/test/kawa/TestEnum.kawa",
+		},
+		{
+			"type": "java",
+			"name": "Debug interface",
+			"request": "launch",
+			"mainClass": "org.antlr.v4.gui.TestRig",
+			"args": "io.spotnext.kawa.lang.Kawa interfaceDeclaration -gui -tree -tokens src/test/kawa/TestInterface.kawa",
+		},
+		{
+			"type": "java",
+			"name": "Debug annotation",
+			"request": "launch",
+			"mainClass": "org.antlr.v4.gui.TestRig",
+			"args": "io.spotnext.kawa.lang.Kawa annotationDeclaration -gui -tree -tokens src/test/kawa/TestAnnotation.kawa",
 		},
 		{
 			"type": "java",
@@ -24,7 +52,7 @@
 			"request": "launch",
 			"mainClass": "org.antlr.v4.gui.TestRig",
 			"args": "io.spotnext.kawa.lang.Kawa test_methodDeclarations -gui -tree -tokens src/test/kawa/methodDeclaration.kawa.part",
-		}
+		},
 		{
 			"type": "java",
 			"name": "Debug codeBlock",

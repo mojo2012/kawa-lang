@@ -278,6 +278,46 @@ public interface KawaListener extends ParseTreeListener {
 	 */
 	void exitStructDeclaration(KawaParser.StructDeclarationContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link KawaParser#annotationModifiers}.
+	 * @param ctx the parse tree
+	 */
+	void enterAnnotationModifiers(KawaParser.AnnotationModifiersContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KawaParser#annotationModifiers}.
+	 * @param ctx the parse tree
+	 */
+	void exitAnnotationModifiers(KawaParser.AnnotationModifiersContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KawaParser#annotationName}.
+	 * @param ctx the parse tree
+	 */
+	void enterAnnotationName(KawaParser.AnnotationNameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KawaParser#annotationName}.
+	 * @param ctx the parse tree
+	 */
+	void exitAnnotationName(KawaParser.AnnotationNameContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KawaParser#annotationValue}.
+	 * @param ctx the parse tree
+	 */
+	void enterAnnotationValue(KawaParser.AnnotationValueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KawaParser#annotationValue}.
+	 * @param ctx the parse tree
+	 */
+	void exitAnnotationValue(KawaParser.AnnotationValueContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KawaParser#annotationDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterAnnotationDeclaration(KawaParser.AnnotationDeclarationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KawaParser#annotationDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitAnnotationDeclaration(KawaParser.AnnotationDeclarationContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link KawaParser#typeLiteral}.
 	 * @param ctx the parse tree
 	 */
@@ -298,15 +338,15 @@ public interface KawaListener extends ParseTreeListener {
 	 */
 	void exitCasting(KawaParser.CastingContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link KawaParser#literals}.
+	 * Enter a parse tree produced by {@link KawaParser#literal}.
 	 * @param ctx the parse tree
 	 */
-	void enterLiterals(KawaParser.LiteralsContext ctx);
+	void enterLiteral(KawaParser.LiteralContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link KawaParser#literals}.
+	 * Exit a parse tree produced by {@link KawaParser#literal}.
 	 * @param ctx the parse tree
 	 */
-	void exitLiterals(KawaParser.LiteralsContext ctx);
+	void exitLiteral(KawaParser.LiteralContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link KawaParser#memberVisibilityModifiers}.
 	 * @param ctx the parse tree

@@ -1,0 +1,14 @@
+@private
+enum QueryType {
+	// default 
+	NATIVE_QUERY,
+	JPA_QUERY("hibernate");
+
+	@private @prop
+	val internalType: String
+
+	@private
+	def new = (internalType: String = "SQL"): void {
+		this.internalType = internalType
+	}
+}

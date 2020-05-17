@@ -18,7 +18,6 @@ import io.spotnext.kawa.lang.KawaParser.ImplementsDeclarationContext;
 import io.spotnext.kawa.lang.KawaParser.ImportRenameContext;
 import io.spotnext.kawa.lang.KawaParser.ImportsDeclarationContext;
 import io.spotnext.kawa.lang.KawaParser.InterfaceDeclarationContext;
-import io.spotnext.kawa.lang.KawaParser.LiteralsContext;
 import io.spotnext.kawa.lang.KawaParser.MemberVisibilityModifiersContext;
 import io.spotnext.kawa.lang.KawaParser.MethodArgumentsContext;
 import io.spotnext.kawa.lang.KawaParser.MethodDeclarationContext;
@@ -251,18 +250,6 @@ public abstract class KWParseListener implements KawaListener {
 
 	@Override
 	public void exitMemberVisibilityModifiers(MemberVisibilityModifiersContext ctx) {
-		//
-
-	}
-
-	@Override
-	public void enterLiterals(LiteralsContext ctx) {
-		//
-
-	}
-
-	@Override
-	public void exitLiterals(LiteralsContext ctx) {
 		//
 
 	}

@@ -19,6 +19,11 @@ package TestPackage {
 		var firstName = "test" as char[]
 		val age = 1;
 
+		@public
+		def new = (): void {
+			// 
+		}
+
 		@private
 		def internalMethod = (): void {
 			// do some magic

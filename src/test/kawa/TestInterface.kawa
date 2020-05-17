@@ -1,0 +1,10 @@
+@private
+interface Test extends OtherInterface {
+	// methods cannot have a modifier
+	def calculate = (a: int, b: int): int
+
+	// implicite default modifier
+	def calculate = (a = 0, b: int = 2.2): int {
+		// return
+	}
+}

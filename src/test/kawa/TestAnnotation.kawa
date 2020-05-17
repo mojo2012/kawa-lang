@@ -1,0 +1,7 @@
+@private
+annotation Query {
+	// all properties are final by default, no "val" needed
+	queryString: String
+	nativeQuery: boolean = true
+	enableCaching = false
+}

@@ -1,0 +1,12 @@
+@private
+// structs cannot extend any other type
+// they cannot have methods either
+struct Test {
+	val id: int
+	var fullName: char[] = "test"
+	var firstName = "test" as char[]
+	val age = 1
+
+	// constructors are created for all final (= val) fields and for all fields.
+	// getters/setters (for var fields) are created too.
+}

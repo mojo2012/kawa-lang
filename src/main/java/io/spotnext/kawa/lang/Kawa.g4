@@ -29,25 +29,31 @@ interfaceDeclaration : interfaceModifiers INTERFACE interfaceName genericArgumen
 // enum
 enumModifiers                 : PRIVATE;
 enumName                      : IDENTIFIER;
-enumValueDeclarationArgument  : literals;
+enumValueDeclarationArgument  : literal;
 enumValueDeclarationArguments : enumValueDeclarationArgument (',' enumValueDeclarationArgument)*;
 enumValueDeclaration          : IDENTIFIER ('(' enumValueDeclarationArguments ')')?;
 enumValueDeclarations         : enumValueDeclaration (',' enumValueDeclaration)*;
-enumDeclaration               : enumModifiers? ENUM enumName '{' enumValueDeclaration* '}';
+enumDeclaration               : enumModifiers? ENUM enumName '{' enumValueDeclarations* (';' (fieldDeclaration | methodDeclaration)*)? '}';
 
 // struct
 structModifiers   : PRIVATE;
 structName        : IDENTIFIER;
 structDeclaration : structModifiers? STRUCT structName '{' fieldDeclaration* '}';
 
+// annotation
+annotationModifiers   : PRIVATE;
+annotationName        : IDENTIFIER;
+annotationValue       : variableName (OF_OERATOR typeLiteral)? (ASSIGN (assignment))? casting?;
+annotationDeclaration : annotationModifiers? ANNOTATION annotationName '{' annotationValue* '}';
+
 // general
 typeLiteral               : IDENTIFIER (ARRAY_EMPTY? | genericArguments?) OPTIONAL?;
 casting                   : (AS typeLiteral);
-literals                  : STRING_LITERAL | INTEGER_LITERAL | LONG_LITERAL | FLOAT_LITERAL | DOUBLE_LITERAL | HEX_NUMERIC_LITERAL | BOOLEAN_LITERAL | NULL_LITERAL;
+literal                   : STRING_LITERAL | INTEGER_LITERAL | LONG_LITERAL | FLOAT_LITERAL | DOUBLE_LITERAL | HEX_NUMERIC_LITERAL | BOOLEAN_LITERAL | NULL_LITERAL;
 memberVisibilityModifiers : (PRIVATE | PROTECTED | PUBLIC)?;
 
 // variables and fields
-assignment          : variableAccess | literals | methodInvocation | listInitialization | mapInitialization;
+assignment          : variableAccess | literal | methodInvocation | listInitialization | mapInitialization;
 arguments           : assignment (',' assignment)*;
 variableName        : IDENTIFIER;
 variableAccess      : (THIS DOT_OPERATOR)? variableName;
@@ -62,11 +68,11 @@ methodParameters  : methodParameter (',' methodParameter)*;
 methodDeclaration : methodModifiers METHOD methodName genericArguments? ASSIGN '(' methodParameters* ')' OF_OERATOR typeLiteral OPTIONAL? codeBlock?;
 
 // code block
-returnStatement    : RETURN IDENTIFIER;
+returnStatement    : RETURN (IDENTIFIER | literal);
 methodArguments    : arguments;
-methodInvocation   : ((variableAccess | className | literals | THIS | SUPER) DOT_OPERATOR)? methodName '(' arguments* ')';
-variableAssignment : variableName ASSIGN (methodInvocation | literals) (casting)?;
-codeBlock          : '{' (variableDeclaration | methodInvocation)* returnStatement? '}';
+methodInvocation   : ((variableAccess | className | literal | THIS | SUPER) DOT_OPERATOR)? methodName '(' arguments* ')';
+variableAssignment : (variableAccess | className | literal) ASSIGN (methodInvocation | variableAccess | literal) (casting)?;
+codeBlock          : '{' (variableDeclaration | variableAssignment | methodInvocation)* returnStatement? '}';
 
 // list and map comprehension
 listInitialization : '[' arguments* ']';
@@ -124,6 +130,7 @@ CLASS          : 'class';
 INTERFACE      : 'interface';
 ENUM           : 'enum';
 STRUCT         : 'struct';
+ANNOTATION     : 'annotation';
 VARIABLE       : 'var';
 FINAL_VARIABLE : 'let' | 'val';
 METHOD         : 'def';

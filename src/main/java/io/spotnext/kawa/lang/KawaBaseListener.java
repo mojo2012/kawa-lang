@@ -340,6 +340,54 @@ public class KawaBaseListener implements KawaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterAnnotationModifiers(KawaParser.AnnotationModifiersContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAnnotationModifiers(KawaParser.AnnotationModifiersContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAnnotationName(KawaParser.AnnotationNameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAnnotationName(KawaParser.AnnotationNameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAnnotationValue(KawaParser.AnnotationValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAnnotationValue(KawaParser.AnnotationValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAnnotationDeclaration(KawaParser.AnnotationDeclarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAnnotationDeclaration(KawaParser.AnnotationDeclarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterTypeLiteral(KawaParser.TypeLiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -364,13 +412,13 @@ public class KawaBaseListener implements KawaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLiterals(KawaParser.LiteralsContext ctx) { }
+	@Override public void enterLiteral(KawaParser.LiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLiterals(KawaParser.LiteralsContext ctx) { }
+	@Override public void exitLiteral(KawaParser.LiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
