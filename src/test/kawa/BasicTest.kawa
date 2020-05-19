@@ -1,0 +1,11 @@
+import java.lang.System::println as print
+
+package Test {
+
+	class BasicTest {
+		@public
+		def main = (args: String[]): void {
+			print("Hello from kawa")
+		}
+	}
+}

@@ -1,7 +1,7 @@
 {
 	// variable declaration
 	val val1 = 1
-	var val2: Integer
+	var var2: Integer
 	var var3: String = null
 
 	// variable assignment

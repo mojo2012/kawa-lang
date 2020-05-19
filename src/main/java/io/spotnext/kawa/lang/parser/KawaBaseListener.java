@@ -1,5 +1,5 @@
-// Generated from /Users/matthias/Projekte/kawa-lang/src/main/java/io/spotnext/kawa/lang/Kawa.g4 by ANTLR 4.7.1
-package io.spotnext.kawa.lang;
+// Generated from /Users/matthias/Projekte/kawa-lang/src/main/java/io/spotnext/kawa/lang/parser/Kawa.g4 by ANTLR 4.7.1
+package io.spotnext.kawa.lang.parser;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -16,25 +16,37 @@ public class KawaBaseListener implements KawaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterQualifiedName(KawaParser.QualifiedNameContext ctx) { }
+	@Override public void enterQualifiedTypeName(KawaParser.QualifiedTypeNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitQualifiedName(KawaParser.QualifiedNameContext ctx) { }
+	@Override public void exitQualifiedTypeName(KawaParser.QualifiedTypeNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterQualifiedNameElement(KawaParser.QualifiedNameElementContext ctx) { }
+	@Override public void enterQualifiedTypeNameElement(KawaParser.QualifiedTypeNameElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitQualifiedNameElement(KawaParser.QualifiedNameElementContext ctx) { }
+	@Override public void exitQualifiedTypeNameElement(KawaParser.QualifiedTypeNameElementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterQualifiedmemberNameElement(KawaParser.QualifiedmemberNameElementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitQualifiedmemberNameElement(KawaParser.QualifiedmemberNameElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

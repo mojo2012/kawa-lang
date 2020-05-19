@@ -1,5 +1,5 @@
-// Generated from /Users/matthias/Projekte/kawa-lang/src/main/java/io/spotnext/kawa/lang/Kawa.g4 by ANTLR 4.7.1
-package io.spotnext.kawa.lang;
+// Generated from /Users/matthias/Projekte/kawa-lang/src/main/java/io/spotnext/kawa/lang/parser/Kawa.g4 by ANTLR 4.7.1
+package io.spotnext.kawa.lang.parser;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

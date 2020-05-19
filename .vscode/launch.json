@@ -6,6 +6,21 @@
 	"configurations": [
 		{
 			"type": "java",
+			"name": "Debug Compiler",
+			"request": "launch",
+			"mainClass": "io.spotnext.kawa.Main"
+		},
+		{
+			"type": "antlr-debug",
+			"request": "launch",
+			"name": "Debug TestClass",
+			"input": "src/test/kawa/TestClass.kawa",
+			"printParseTree": true,
+			"visualParseTree": true,
+			"startRule": "compilationUnit"
+		},
+		{
+			"type": "java",
 			"name": "Debug compilationUnit",
 			"request": "launch",
 			"mainClass": "org.antlr.v4.gui.TestRig",

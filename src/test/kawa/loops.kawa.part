@@ -29,7 +29,7 @@ loop (x = 0; x < 10; x++) {
 	continue
 }
 
-while(var stop == false) {
+while (var stop == false) {
 	print "Running"
 	stop = true
 }

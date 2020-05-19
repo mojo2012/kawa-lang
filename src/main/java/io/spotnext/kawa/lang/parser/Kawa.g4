@@ -2,13 +2,14 @@ grammar Kawa;
 
 // PARSER RULES
 
-qualifiedName        : qualifiedNameElement (DOT_OPERATOR qualifiedNameElement)*;
-qualifiedNameElement : IDENTIFIER;
-importsDeclaration   : IMPORT qualifiedName importRename?;
-importRename         : AS IDENTIFIER;
-packageName          : IDENTIFIER;
-packageDeclaration   : PACKAGE packageName '{' ( classDeclaration | interfaceDeclaration | enumDeclaration | structDeclaration) '}';
-compilationUnit      : (importsDeclaration)* packageDeclaration EOF;
+qualifiedTypeName          : qualifiedTypeNameElement (DOT_OPERATOR qualifiedTypeNameElement)*;
+qualifiedTypeNameElement   : IDENTIFIER;
+qualifiedmemberNameElement : IDENTIFIER;
+importsDeclaration         : IMPORT qualifiedTypeName (OF_OERATOR OF_OERATOR qualifiedmemberNameElement)? importRename?;
+importRename               : AS IDENTIFIER;
+packageName                : IDENTIFIER;
+packageDeclaration         : PACKAGE packageName '{' ( classDeclaration | interfaceDeclaration | enumDeclaration | structDeclaration) '}';
+compilationUnit            : (importsDeclaration)* packageDeclaration EOF;
 
 // type hierarchy
 extendsDeclaration    : EXTENDS className;
@@ -109,11 +110,11 @@ fragment DOT            : '.';
 fragment COMMA          : ',';
 fragment UNDERSCORE     : '_';
 
-OPTIONAL         : QUESTION_MARK;
-OF_OERATOR       : COLON;
-ARRAY_EMPTY      : '[]';
-DOT_OPERATOR     : DOT;
-DOT_DOT_OPERATOR : DOT DOT;
+OPTIONAL              : QUESTION_MARK;
+OF_OERATOR            : COLON;
+ARRAY_EMPTY           : '[]';
+DOT_OPERATOR          : DOT;
+DOT_DOT_OPERATOR      : DOT DOT;
 OPTIONAL_DOT_OPERATOR : OPTIONAL DOT;
 
 // literals

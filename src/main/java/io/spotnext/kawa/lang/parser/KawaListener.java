@@ -1,5 +1,5 @@
-// Generated from /Users/matthias/Projekte/kawa-lang/src/main/java/io/spotnext/kawa/lang/Kawa.g4 by ANTLR 4.7.1
-package io.spotnext.kawa.lang;
+// Generated from /Users/matthias/Projekte/kawa-lang/src/main/java/io/spotnext/kawa/lang/parser/Kawa.g4 by ANTLR 4.7.1
+package io.spotnext.kawa.lang.parser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -8,25 +8,35 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface KawaListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link KawaParser#qualifiedName}.
+	 * Enter a parse tree produced by {@link KawaParser#qualifiedTypeName}.
 	 * @param ctx the parse tree
 	 */
-	void enterQualifiedName(KawaParser.QualifiedNameContext ctx);
+	void enterQualifiedTypeName(KawaParser.QualifiedTypeNameContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link KawaParser#qualifiedName}.
+	 * Exit a parse tree produced by {@link KawaParser#qualifiedTypeName}.
 	 * @param ctx the parse tree
 	 */
-	void exitQualifiedName(KawaParser.QualifiedNameContext ctx);
+	void exitQualifiedTypeName(KawaParser.QualifiedTypeNameContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link KawaParser#qualifiedNameElement}.
+	 * Enter a parse tree produced by {@link KawaParser#qualifiedTypeNameElement}.
 	 * @param ctx the parse tree
 	 */
-	void enterQualifiedNameElement(KawaParser.QualifiedNameElementContext ctx);
+	void enterQualifiedTypeNameElement(KawaParser.QualifiedTypeNameElementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link KawaParser#qualifiedNameElement}.
+	 * Exit a parse tree produced by {@link KawaParser#qualifiedTypeNameElement}.
 	 * @param ctx the parse tree
 	 */
-	void exitQualifiedNameElement(KawaParser.QualifiedNameElementContext ctx);
+	void exitQualifiedTypeNameElement(KawaParser.QualifiedTypeNameElementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KawaParser#qualifiedmemberNameElement}.
+	 * @param ctx the parse tree
+	 */
+	void enterQualifiedmemberNameElement(KawaParser.QualifiedmemberNameElementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KawaParser#qualifiedmemberNameElement}.
+	 * @param ctx the parse tree
+	 */
+	void exitQualifiedmemberNameElement(KawaParser.QualifiedmemberNameElementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link KawaParser#importsDeclaration}.
 	 * @param ctx the parse tree

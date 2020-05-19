@@ -17,7 +17,7 @@ package TestPackage {
 		// default is protected
 		// public member access not possible
 		var firstName = "test" as char[]
-		val age = 1;
+		val age = 1
 
 		@public
 		def new = (): void {

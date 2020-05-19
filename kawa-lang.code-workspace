@@ -10,7 +10,7 @@
 			"language": "Java",
 			"listeners": true,
 			"visitors": false,
-			"package": "io.spotnext.kawa.lang",
+			"package": "io.spotnext.kawa.lang.parser",
 			"outputDir": "."
 		},
 		"antlr4.format": {
