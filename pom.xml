@@ -9,6 +9,7 @@
 		<maven.compiler.source>13</maven.compiler.source>
 		<maven.compiler.target>13</maven.compiler.target>
 		<java.version>13</java.version>
+		<graalvm.version>20.0.0</graalvm.version>
 	</properties>
 
 	<dependencies>
@@ -16,6 +17,34 @@
 			<groupId>org.antlr</groupId>
 			<artifactId>antlr4</artifactId>
 			<version>4.7.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.graalvm.truffle</groupId>
+			<artifactId>truffle-api</artifactId>
+			<version>${graalvm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.graalvm.truffle</groupId>
+			<artifactId>truffle-dsl-processor</artifactId>
+			<version>${graalvm.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.graalvm.truffle</groupId>
+			<artifactId>truffle-tck</artifactId>
+			<version>${graalvm.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>antlr4-runtime</artifactId>
+			<version>4.7</version>
 		</dependency>
 	</dependencies>
 </project>

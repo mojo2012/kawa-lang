@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import com.oracle.truffle.api.RootCallTarget;
+
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -76,6 +78,10 @@ public class KWParseListener implements KawaListener {
 	private List<ImportStatementNode> importStatements = new ArrayList<>();
 
 	private PackageNode packageDeclaration;
+
+	public RootCallTarget getMainMethod() {
+		return null;
+	}
 
 	@Override
 	public void enterImportsDeclaration(ImportsDeclarationContext ctx) {

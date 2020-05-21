@@ -1,0 +1,14 @@
+<factorypath>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/antlr/antlr4/4.7.1/antlr4-4.7.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/antlr/antlr-runtime/3.5.2/antlr-runtime-3.5.2.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/antlr/ST4/4.0.8/ST4-4.0.8.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/abego/treelayout/org.abego.treelayout.core/1.0.3/org.abego.treelayout.core-1.0.3.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/glassfish/javax.json/1.0.4/javax.json-1.0.4.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/ibm/icu/icu4j/58.2/icu4j-58.2.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/graalvm/truffle/truffle-api/20.0.0/truffle-api-20.0.0.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/graalvm/sdk/graal-sdk/20.0.0/graal-sdk-20.0.0.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/graalvm/truffle/truffle-dsl-processor/20.0.0/truffle-dsl-processor-20.0.0.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/graalvm/truffle/truffle-tck/20.0.0/truffle-tck-20.0.0.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/graalvm/sdk/polyglot-tck/20.0.0/polyglot-tck-20.0.0.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/antlr/antlr4-runtime/4.7/antlr4-runtime-4.7.jar" enabled="true" runInBatchMode="false"/>
+</factorypath>

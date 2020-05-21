@@ -8,7 +8,8 @@
 			"type": "java",
 			"name": "Debug Compiler",
 			"request": "launch",
-			"mainClass": "io.spotnext.kawa.Main"
+			"mainClass": "io.spotnext.kawa.KawaLanguage",
+			"args": "src/test/kawa/BasicTest.kawa"
 		},
 		{
 			"type": "antlr-debug",

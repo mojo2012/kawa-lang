@@ -11,7 +11,7 @@ public class KWErrorListener extends BaseErrorListener {
 
 		final String errorFormat = "There is an error in line %d, char %d: %s";
 		final String errorMsg = String.format(errorFormat, line, charPositionInLine, msg);
-		
+
 		System.out.println(errorMsg);
 	}
 }
