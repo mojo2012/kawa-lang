@@ -3,9 +3,9 @@ import java.lang.System::println as print
 package Test {
 
 	class BasicTest {
-		@public
+		@public @static
 		def main = (args: String[]): void {
-			print("Hello from kawa")
+			print("Hello from kawa", 1)
 		}
 	}
 }

@@ -1,6 +1,8 @@
 package io.spotnext.kawa.lang.nodes;
 
-public class ImportStatementNode {
+import com.oracle.truffle.api.nodes.Node;
+
+public class ImportStatementNode extends Node {
 	private String fullyQualifiedName;
 	private String fullyQualifiedMethodName;
 	private String alias;

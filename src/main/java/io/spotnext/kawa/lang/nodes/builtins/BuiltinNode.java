@@ -1,6 +1,5 @@
 package io.spotnext.kawa.lang.nodes.builtins;
 
-import com.oracle.truffle.api.dsl.GenerateNodeFactory;
 import com.oracle.truffle.api.dsl.NodeChild;
 
 import io.spotnext.kawa.lang.nodes.ExpressionNode;
@@ -13,8 +12,8 @@ import io.spotnext.kawa.lang.nodes.ExpressionNode;
  * {@link SLFunctionRegistry}. This ensures that builtin functions can be called like user-defined
  * functions; there is no special function lookup or call node for builtin functions.
  */
-@NodeChild(value = "arguments", type = ExpressionNode[].class)
-@GenerateNodeFactory
+// @NodeChild(value = "arguments", type = ExpressionNode[].class)
+// @GenerateNodeFactory
 public abstract class BuiltinNode extends ExpressionNode {
 
     // @Override

@@ -5,12 +5,15 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.List;
 
+import com.oracle.truffle.api.Scope;
 import com.oracle.truffle.api.TruffleLanguage;
 import com.oracle.truffle.api.TruffleLanguage.Env;
 import com.oracle.truffle.api.dsl.NodeFactory;
 import com.oracle.truffle.api.instrumentation.AllocationReporter;
 import com.oracle.truffle.api.object.Layout;
 import com.oracle.truffle.api.object.Shape;
+
+import org.graalvm.polyglot.Context;
 
 import io.spotnext.kawa.KawaLanguage;
 import io.spotnext.kawa.lang.nodes.builtins.BuiltinNode;
@@ -19,6 +22,7 @@ public class KawaContext {
 	static final Layout LAYOUT = Layout.createLayout();
 
 	private final Env env;
+	private final Context context;
 	private final BufferedReader input;
 	private final PrintWriter output;
 	// private final SLFunctionRegistry functionRegistry;
@@ -27,20 +31,24 @@ public class KawaContext {
 	private final AllocationReporter allocationReporter;
 	// private final Iterable<Scope> topScopes; // Cache the top scopes
 
-	public KawaContext(KawaLanguage language, TruffleLanguage.Env env,
+	public KawaContext(KawaLanguage language, TruffleLanguage.Env env, Context context,
 			List<NodeFactory<? extends BuiltinNode>> externalBuiltins) {
+
 		this.env = env;
+		this.context = context;
 		this.input = new BufferedReader(new InputStreamReader(env.in()));
 		this.output = new PrintWriter(env.out(), true);
 		this.language = language;
 		this.allocationReporter = env.lookup(AllocationReporter.class);
 		// this.functionRegistry = new SLFunctionRegistry(language);
 		// this.topScopes = Collections
-		// 		.singleton(Scope.newBuilder("global", functionRegistry.getFunctionsObject()).build());
+		// .singleton(Scope.newBuilder("global",
+		// functionRegistry.getFunctionsObject()).build());
 		// installBuiltins();
 		// for (NodeFactory<? extends SLBuiltinNode> builtin : externalBuiltins) {
-		// 	installBuiltin(builtin);
+		// installBuiltin(builtin);
 		// }
+
 		this.emptyShape = LAYOUT.createShape(KawaObjectType.SINGLETON);
 	}
 
@@ -52,5 +60,9 @@ public class KawaContext {
 		 */
 		return LAYOUT.getType().isInstance(value)
 				&& LAYOUT.getType().cast(value).getShape().getObjectType() == KawaObjectType.SINGLETON;
+	}
+
+	public Iterable<Scope> getTopScopes() {
+		return null;
 	}
 }

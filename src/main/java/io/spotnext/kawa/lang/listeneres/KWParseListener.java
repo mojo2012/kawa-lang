@@ -2,16 +2,22 @@ package io.spotnext.kawa.lang.listeneres;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
-
-import com.oracle.truffle.api.RootCallTarget;
+import java.util.Optional;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import io.spotnext.kawa.lang.nodes.ClassNode;
+import io.spotnext.kawa.lang.nodes.CodeBlockNode;
+import io.spotnext.kawa.lang.nodes.FieldNode;
 import io.spotnext.kawa.lang.nodes.ImportStatementNode;
-import io.spotnext.kawa.lang.nodes.PackageNode;
+import io.spotnext.kawa.lang.nodes.MemberModifierNode;
+import io.spotnext.kawa.lang.nodes.MethodArgumentNode;
+import io.spotnext.kawa.lang.nodes.MethodInvocationNode;
+import io.spotnext.kawa.lang.nodes.MethodNode;
+import io.spotnext.kawa.lang.nodes.StatementNode;
+import io.spotnext.kawa.lang.nodes.TypeNode;
 import io.spotnext.kawa.lang.parser.KawaListener;
 import io.spotnext.kawa.lang.parser.KawaParser.AnnotationDeclarationContext;
 import io.spotnext.kawa.lang.parser.KawaParser.AnnotationModifiersContext;
@@ -71,26 +77,38 @@ import io.spotnext.kawa.lang.parser.KawaParser.VariableAccessContext;
 import io.spotnext.kawa.lang.parser.KawaParser.VariableAssignmentContext;
 import io.spotnext.kawa.lang.parser.KawaParser.VariableDeclarationContext;
 import io.spotnext.kawa.lang.parser.KawaParser.VariableNameContext;
+import io.spotnext.kawa.lang.runtime.MemberVisibility;
+import io.spotnext.kawa.util.Loggable;
 
-public class KWParseListener implements KawaListener {
-	private static final Logger LOGGER = Logger.getLogger(KWErrorListener.class.toString());
-
+public class KWParseListener implements KawaListener, Loggable {
+	// temporary variables
 	private List<ImportStatementNode> importStatements = new ArrayList<>();
+	private String packageName;
+	private String typeName;
 
-	private PackageNode packageDeclaration;
+	private List<MethodNode> methods = new ArrayList<>();
+	private List<FieldNode> fields = new ArrayList<>();
 
-	public RootCallTarget getMainMethod() {
-		return null;
+	// current typeNode
+	private TypeNode typeNode;
+	private MethodNode mainMethod;
+
+	public Optional<MethodNode> getMainMethod() {
+		return Optional.ofNullable(mainMethod);
 	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// import
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	@Override
 	public void enterImportsDeclaration(ImportsDeclarationContext ctx) {
-		LOGGER.info("enterImportsDeclaration");
+		log().info("enterImportsDeclaration");
 	}
 
 	@Override
 	public void exitImportsDeclaration(ImportsDeclarationContext ctx) {
-		LOGGER.info("exitImportsDeclaration");
+		log().info("exitImportsDeclaration");
 
 		if (ctx.children.size() >= 2) {
 			final var qualifiedTypeName = ctx.children.get(1).getText();
@@ -109,15 +127,146 @@ public class KWParseListener implements KawaListener {
 
 			importStatements.add(statement);
 		} else {
-			LOGGER.warning("Canno process import statement");
+			log().warning("Cannot process import statement");
 		}
 	}
 
 	@Override
-	public void exitPackageDeclaration(PackageDeclarationContext ctx) {
-		final var packageName = ctx.children.get(1).getText();
-		packageDeclaration = new PackageNode(packageName);
+	public void enterImportRename(ImportRenameContext ctx) {
+		log().info("enterImportRename");
+		// not needed
 	}
+
+	@Override
+	public void exitImportRename(ImportRenameContext ctx) {
+		log().info("exitImportRename");
+		// not needed
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// package
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	public void enterPackageDeclaration(PackageDeclarationContext ctx) {
+		log().info("enterPackageDeclaration");
+	}
+
+	@Override
+	public void exitPackageDeclaration(PackageDeclarationContext ctx) {
+		log().info("exitPackageDeclaration");
+		this.packageName = ctx.children.get(1).getText();
+		this.typeNode = new ClassNode(typeName, packageName, importStatements, methods);
+	}
+
+	@Override
+	public void enterPackageName(PackageNameContext ctx) {
+		log().info("enterPackageName");
+		// not needed
+	}
+
+	@Override
+	public void exitPackageName(PackageNameContext ctx) {
+		log().info("exitPackageName");
+		// not needed
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// type
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	public void enterClassDeclaration(ClassDeclarationContext ctx) {
+		log().info("enterClassDeclaration");
+		// not needed
+	}
+
+	@Override
+	public void exitClassDeclaration(ClassDeclarationContext ctx) {
+		log().info("exitClassDeclaration");
+		// not needed
+	}
+
+	@Override
+	public void enterClassName(ClassNameContext ctx) {
+		log().info("enterClassName");
+		// not needed
+	}
+
+	@Override
+	public void exitClassName(ClassNameContext ctx) {
+		log().info("exitClassName");
+		if (ctx.children != null) {
+			this.typeName = ctx.children.get(0).getText();
+		} else {
+			log().warning("No children");
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// class body
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	public void exitMethodDeclaration(MethodDeclarationContext ctx) {
+		log().info("exitMethodDeclaration");
+
+		final var modifiers = new ArrayList<MemberModifierNode>();
+		final var modifierParentNode = ctx.children.get(0);
+
+		for (int x = 0; x < modifierParentNode.getChildCount(); x++) {
+			final var modifier = modifierParentNode.getChild(x);
+			final var modifierNode = new MemberModifierNode(modifier.getText());
+			modifiers.add(modifierNode);
+		}
+
+		final var name = ctx.children.get(2).getText();
+		final var statements = new ArrayList<StatementNode>();
+
+		{
+			final var methodName = ctx.children.get(9).getChild(1).getChild(0).getText();
+			final var methodArguments = new ArrayList<MethodArgumentNode>();
+
+			for (int x = 0; x < ctx.getChild(2).getChildCount(); x++) {
+				final var arg = ctx.getChild(2).getChild(x);
+				final var argNode = new MethodArgumentNode(x);
+				methodArguments.add(argNode);
+			}
+
+			final var statement = new MethodInvocationNode(methodName, methodArguments);
+			statements.add(statement);
+		}
+
+		final var method = new MethodNode(name, modifiers, new CodeBlockNode(statements));
+
+		this.methods.add(method);
+
+		if ("main".equals(method.getName()) && MemberVisibility.PUBLIC.equals(method.getVisibility())) {
+			this.mainMethod = method;
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// code blocks
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	public void exitMethodInvocation(MethodInvocationContext ctx) {
+		log().info("exitMethodInvocation");
+
+		// final var methodName = ctx.children.get(0).getText();
+		// final var methodArguments = new ArrayList<String>();
+
+		// for (int x = 0; x < ctx.getChild(2).getChildCount(); x++) {
+		// 	final var arg = ctx.getChild(2).getChild(x);
+		// 	final var argNode = new MethodArgumentNode(x);
+		// }
+
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// unused
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	@Override
 	public void visitTerminal(TerminalNode node) {
@@ -175,36 +324,6 @@ public class KWParseListener implements KawaListener {
 
 	@Override
 	public void exitQualifiedmemberNameElement(QualifiedmemberNameElementContext ctx) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void enterImportRename(ImportRenameContext ctx) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void exitImportRename(ImportRenameContext ctx) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void enterPackageName(PackageNameContext ctx) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void exitPackageName(PackageNameContext ctx) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void enterPackageDeclaration(PackageDeclarationContext ctx) {
 		// TODO Auto-generated method stub
 
 	}
@@ -277,30 +396,6 @@ public class KWParseListener implements KawaListener {
 
 	@Override
 	public void exitClassModifiers(ClassModifiersContext ctx) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void enterClassName(ClassNameContext ctx) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void exitClassName(ClassNameContext ctx) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void enterClassDeclaration(ClassDeclarationContext ctx) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void exitClassDeclaration(ClassDeclarationContext ctx) {
 		// TODO Auto-generated method stub
 
 	}
@@ -649,7 +744,6 @@ public class KWParseListener implements KawaListener {
 
 	@Override
 	public void exitMethodName(MethodNameContext ctx) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -684,12 +778,6 @@ public class KWParseListener implements KawaListener {
 	}
 
 	@Override
-	public void exitMethodDeclaration(MethodDeclarationContext ctx) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void enterReturnStatement(ReturnStatementContext ctx) {
 		// TODO Auto-generated method stub
 
@@ -715,12 +803,6 @@ public class KWParseListener implements KawaListener {
 
 	@Override
 	public void enterMethodInvocation(MethodInvocationContext ctx) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void exitMethodInvocation(MethodInvocationContext ctx) {
 		// TODO Auto-generated method stub
 
 	}
