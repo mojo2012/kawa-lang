@@ -4,8 +4,22 @@ kawa programming language
 Toy project to implement a better programming language than java ;-)
 
 ## Features
-### Consistent syntax for ...
-variable declaration:
+### Null-safe navigator
+```
+var name = generator?.generateName()
+```
+> If object is null there will be no exception thrown, instead the name variable will be set to null
+
+### Builders syntax
+```
+val person = Person
+    .new(name = "Peter") // named arguments
+    ..age = 20
+    ..surName = "Pan"
+```
+> The `..` operator returns the current instance and therefore allowed to use a builder-like syntax
+
+### Variable declaration
 ```
 var numberOfUsers: Integer // uninitialized variable
 var currentUsername: String? = null // initialized with null
@@ -14,7 +28,7 @@ val numberOfLogins = 1 // final declaration, type is inferred
 ```
 > **Variables and class fields align properly** unlike java, where the types are in front of the variable name.
 
-Class-level fields:
+### Class-level fields
 ```
 class Test {
     @prop //implicit protected + getter for "val" or getter/setter for "var"
@@ -23,7 +37,7 @@ class Test {
 ```
 > Getters/setters are generated automatically, but can be manuelly implemented as well
 
-method decaration:
+### Method decaration
 ```
 @private @abstract
 def doStuff = (): void
@@ -49,7 +63,7 @@ def abstractMethod = (value: int): String
 > Modifiers are modelled as (lower-case) annotations
 > The **default visibility modifier for classes and methods is public**, for fields it is **protected**.
 
-Methods as first-class citizens:
+### Methods as first-class citizens
 ```
 class Test {
     def calculate = (): int {
@@ -72,7 +86,36 @@ notNullCheck(null) // with throw an AssertionException
 ```
 > Closures can be defined an called like regular methods using (<params>)
 
-* Control statements are expressions (val name = 
+### Control statements are expressions and can yield results
+```
+val result = if (name isnot null) {
+    yield "gotit"
+} else {
+    yield "empty"
+}
+```
+> The yield keyword can be used to the return values within any control construct like loops or if or switch.
+
+### Map and list comprehension
+Creation and usage of maps is greatly simplified compared to java (much like in groovy):
+```
+val emptyMap = {}
+val map = { "getTestString": ():String { return "test"}), "key2": "value2" }
+map?["getTestString"]() // nullsave access and execution of closures
+map["key2"] = "new value"
+map["key3"] = "new value" // add a new key
+```
+> Maps can also hold closures which can be invoked using method call syntax
+
+```
+val emptyArray: String[] = [] // type has to be defined as it cannot be inferred
+val value1 = emptyArray?[1] // value1 is null, no exception is thrown
+val array = [ "Peter", "Susan" ]
+```
+
+# Summary
+Overall kawa tries to be as consistent as possible when it comes to syntax. As this is a work in progress, things might change overtime :-)
+Feedback is very welcome!
 
 # Development setup
 
