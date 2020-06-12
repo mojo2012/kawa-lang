@@ -31,7 +31,7 @@ val numberOfLogins = 1 // final declaration, type is inferred
 ### Class-level fields
 ```
 class Test {
-    @prop //implicit protected + getter for "val" or getter/setter for "var"
+    @prop //generates public + getter for "val" or getter/setter for "var"
     var fullName: char[] = "test"
 }
 ```
