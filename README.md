@@ -117,6 +117,8 @@ val array = [ "Peter", "Susan" ]
 Overall kawa tries to be as consistent as possible when it comes to syntax. As this is a work in progress, things might change overtime :-)
 Feedback is very welcome!
 
+Currently I'm evaluating using the GraalVM and Truffle framework to implement the kawa. The benefits would be to automatically have access to a generated debugger and code infrastructure tools (like a language-server and syntax highlighting). Imho, every good programming languages needs a proper IDE support!
+
 # Development setup
 
 Install
@@ -125,3 +127,5 @@ Install
 * https://marketplace.visualstudio.com/items?itemName=redhat.java
 
 The grammar is in `src/main/java/io/spotnext/kawa/Kawa.g4`. The java classes will be refreshed by the antlr plugin. Then you can launch the Debug launch config.
+
+
