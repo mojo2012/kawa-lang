@@ -99,7 +99,7 @@ val result = if (name isnot null) {
 ### Map and list comprehension
 Creation and usage of maps is greatly simplified compared to java (much like in groovy):
 ```
-val emptyMap = {}
+val emptyMap: Map<String, Object> = {}
 val map = { "getTestString": ():String { return "test"}), "key2": "value2" }
 map?["getTestString"]() // nullsave access and execution of closures
 map["key2"] = "new value"
