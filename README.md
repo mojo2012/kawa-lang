@@ -1,7 +1,7 @@
 # kawa-lang
 kawa programming language
 
-Toy project to implement a better programming language than java ;-)
+Toy project to implement a better programming language for the JVM ;-)
 
 ## Features
 ### Null-safe navigator
